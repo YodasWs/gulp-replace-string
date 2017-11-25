@@ -1,26 +1,26 @@
-# gulp-string-replace [![NPM version][npm-image]][npm-url] [![Build status][travis-image]][travis-url] [![dependencies][gulp-string-replace-dependencies-image]][gulp-string-replace-dependencies-url]
+# gulp-replace-string
 > Replaces strings in files by using string or regex patterns. Works with Gulp 3!
 
 ## Installation
 
 ### npm
 ```shell
-npm install gulp-string-replace --save-dev
+npm install gulp-replace-string --save-dev
 ```
 
 ### yarn
 ```shell
-yarn add --dev gulp-string-replace
+yarn add --dev gulp-replace-string
 ```
 
 ## Usage
 
 ### Regex Replace
 ```javascript
-var replace = require('gulp-string-replace');
+var replace = require('gulp-replace-string');
 
 gulp.task('replace_1', function() {
-  gulp.src(["./config.js"]) // Any file globs are supported
+  gulp.src(["./config.js"])
     .pipe(replace(new RegExp('@env@', 'g'), 'production'))
     .pipe(gulp.dest('./build/config.js'))
 });
@@ -43,7 +43,7 @@ gulp.task('replace_3', function() {
 ```javascript
 gulp.task('replace_1', function() {
   gulp.src(["./config.js"])
-    .pipe(replace('environment', 'production'))
+    .pipe(replace('@env@', 'production'))
     .pipe(gulp.dest('./build/config.js'))
 });
 ```
@@ -51,16 +51,16 @@ gulp.task('replace_1', function() {
 ```javascript
 gulp.task('replace_1', function() {
   gulp.src(["./config.js"])
-    .pipe(replace('environment', function () {
-        return 'production';
+    .pipe(replace('@env@', function () {
+        return argv.env === 'dev' ? 'dev' : 'production';
     }))
     .pipe(gulp.dest('./build/config.js'))
 });
 
 gulp.task('replace_2', function() {
   gulp.src(["./config.js"])
-    .pipe(replace('environment', function (replacement) {
-        return replacement + '_mocked';
+    .pipe(replace('environment', function (pattern) {
+        return pattern + '_mocked';
     }))
     .pipe(gulp.dest('./build/config.js'))
 });
