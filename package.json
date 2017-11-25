@@ -1,24 +1,17 @@
 {
-  "name": "gulp-string-replace",
-  "version": "0.4.0",
-  "homepage": "https://github.com/tomaszczechowski/gulp-string-replace#readme",
+  "name": "gulp-replace-string",
+  "version": "0.5.0",
+  "homepage": "https://github.com/YodasWs/gulp-replace-string#readme",
   "description": "Replace strings in files by using string or regex patterns.",
   "main": "index.js",
   "author": {
-    "name": "Tomasz Czechowski",
-    "url": "http://www.czechowski.pl"
+    "name": "Sam Grundman"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tomaszczechowski/gulp-string-replace.git"
+    "url": "git+https://github.com/YodasWs/gulp-replace-string.git"
   },
   "keywords": [
-    "gulp",
-    "gulp",
-    "replace",
-    "gulp",
-    "string",
-    "replace",
     "gulp",
     "replace",
     "string",
@@ -28,7 +21,7 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/tomaszczechowski/gulp-string-replace/issues"
+    "url": "https://github.com/YodasWs/gulp-replace-string/issues"
   },
   "dependencies": {
     "extend": "^3.0.0",

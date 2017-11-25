@@ -1,11 +1,20 @@
 # gulp-string-replace [![NPM version][npm-image]][npm-url] [![Build status][travis-image]][travis-url] [![dependencies][gulp-string-replace-dependencies-image]][gulp-string-replace-dependencies-url]
 > Replaces strings in files by using string or regex patterns. Works with Gulp 3!
 
-## Usage
+## Installation
 
+### npm
 ```shell
 npm install gulp-string-replace --save-dev
 ```
+
+### yarn
+```shell
+yarn add --dev gulp-string-replace
+```
+
+## Usage
+
 ### Regex Replace
 ```javascript
 var replace = require('gulp-string-replace');
@@ -55,13 +64,13 @@ gulp.task('replace_2', function() {
     }))
     .pipe(gulp.dest('./build/config.js'))
 });
-
 ```
 
 ### Exampe with options object
 ```javascript
-
 var options = {
+  pattern: /@env@/g
+  replacement: 'dev',
   logs: {
     enabled: false
   }
@@ -69,13 +78,40 @@ var options = {
 
 gulp.task('replace_1', function() {
   gulp.src(["./config.js"])
-    .pipe(replace('environment', 'dev', options)
+    .pipe(replace(options)
     .pipe(gulp.dest('./build/config.js'))
 });
-
 ```
 
 ### API
+
+#### replace(options)
+
+##### options
+Type: `Object`
+
+###### options.pattern
+Type: `String` or `RegExp`
+
+The string to search for.
+
+###### options.replacement
+Type: `String` or `Function`
+
+The replacement string or function. Called once for each match.
+Function has access to regex outcome (all arguments are passed).
+
+###### options.logs.enabled
+Type: `Boolean`, Default: `true`
+
+Displaying logs.
+
+###### options.logs.notReplaced
+Type: `Boolean`, Default: `false`
+
+Displaying "not replaced" logs.
+
+More details here: [MDN documentation for RegExp] and [MDN documentation for String.replace].
 
 #### replace(pattern, replacement, options)
 
@@ -93,17 +129,7 @@ Function has access to regex outcome (all arguments are passed).
 ##### options
 Type: `Object`
 
-###### options.logs.enabled
-Type: `Boolean`, Default: `true`
-
-Displaying logs.
-
-###### options.logs.notReplaced
-Type: `Boolean`, Default: `false`
-
-Displaying "not replaced" logs.
-
-More details here: [MDN documentation for RegExp] and [MDN documentation for String.replace].
+Same as above, but without properties `pattern` or `replacement`
 
 ### Release History
  * 2017-01-19  v0.4.0  Passed entire regex outcome to replace function.

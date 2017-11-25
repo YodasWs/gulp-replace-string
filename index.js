@@ -1,8 +1,9 @@
 /**
- * Gulp String Replace
- * https://github.com/tomaszczechowski/gulp-string-replace
+ * Gulp Replace String
+ * https://github.com/YodasWs/gulp-replace-string
  *
  * Copyright (c) 2016 Tomasz Czechowski
+ * Copyright (c) 2017 Sam Grundman
  * MIT license.
  */
 
@@ -20,7 +21,15 @@ var defaultOptions = {
   }
 };
 
-module.exports = function (replaceFrom, replaceTo, userOptions) {
+module.exports = function (obj, replaceTo=null, userOptions=null) {
+	let replaceFrom = '';
+
+	if (typeof obj === 'object') {
+		if (obj.pattern) replaceFrom = obj.pattern;
+		if (obj.replacement) replaceTo = obj.replacement;
+		options = extend(true, {}, obj, userOptions);
+	}
+
   var options = extend(true, {}, defaultOptions, userOptions);
 
   var log = function (result, from, to, fileName) {
