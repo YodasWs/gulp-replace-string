@@ -66,7 +66,7 @@ gulp.task('replace_2', function() {
 });
 ```
 
-### Exampe with options object
+### Example with options object
 ```javascript
 var options = {
   pattern: /@env@/g
