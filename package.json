@@ -1,6 +1,6 @@
 {
   "name": "gulp-replace-string",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "homepage": "https://github.com/YodasWs/gulp-replace-string#readme",
   "description": "Replace strings in files by using string or regex patterns.",
   "main": "index.js",
