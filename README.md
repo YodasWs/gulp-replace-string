@@ -1,16 +1,18 @@
 # gulp-replace-string
-> Replaces strings in files by using string or regex patterns. Works with Gulp 3!
+> Replaces strings in files by using string or regex patterns.
+
+Forked this off [gulp-string-replace](https://github.com/tomaszczechowski/gulp-string-replace) because I wanted to be able to pass all the arguments/options in a single [options object argument](https://github.com/YodasWs/gulp-replace-string#example-with-options-object).
 
 ## Installation
-
-### npm
-```shell
-npm install gulp-replace-string --save-dev
-```
 
 ### yarn
 ```shell
 yarn add --dev gulp-replace-string
+```
+
+### npm
+```shell
+npm install --save-dev gulp-replace-string
 ```
 
 ## Usage
