@@ -3,7 +3,7 @@
  * https://github.com/YodasWs/gulp-replace-string
  *
  * Copyright (c) 2016 Tomasz Czechowski
- * Copyright (c) 2017 Sam Grundman
+ * Copyright (c) 2017-2018 Sam Grundman
  * MIT license.
  */
 
@@ -23,14 +23,16 @@ var defaultOptions = {
 
 module.exports = function (obj, replaceTo=null, userOptions=null) {
 	let replaceFrom = '';
+	let options = {};
 
-	if (typeof obj === 'object') {
+	if (typeof obj === 'object' && ! (obj instanceof RegExp)) {
 		if (obj.pattern) replaceFrom = obj.pattern;
 		if (obj.replacement) replaceTo = obj.replacement;
 		options = extend(true, {}, obj, userOptions);
+	} else {
+		replaceFrom = obj;
+		options = extend(true, {}, defaultOptions, userOptions);
 	}
-
-  var options = extend(true, {}, defaultOptions, userOptions);
 
   var log = function (result, from, to, fileName) {
     if (!options.logs.enabled || (!options.logs.notReplaced && !result)) return;
