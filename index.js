@@ -34,8 +34,14 @@ module.exports = function (obj, replaceTo=null, userOptions=null) {
 		options = extend(true, {}, defaultOptions, userOptions)
 	}
 
+	if (typeof userOptions === 'boolean') {
+		userOptions = { logs: { enabled: userOptions } }
+	}
+
 	const log = function (result, from, to, fileName) {
+		if (typeof options.logs === 'boolean' && !options.logs) return
 		if (typeof options.logs === 'object' && (!options.logs.enabled || (!options.logs.notReplaced && !result))) return
+		if (options.logs === 'boolean' && !options.logs) return
 
 		gutil.log(
 			(result ? 'Replaced' : 'Not Replaced') + ' ' +

@@ -41,6 +41,7 @@ gulp.task('replace_3', function() {
     .pipe(gulp.dest('./build/config.js'))
 });
 ```
+
 ### String Replace
 ```javascript
 gulp.task('replace_1', function() {
@@ -49,6 +50,7 @@ gulp.task('replace_1', function() {
     .pipe(gulp.dest('./build/config.js'))
 });
 ```
+
 ### Function Replace
 ```javascript
 gulp.task('replace_1', function() {
@@ -103,17 +105,30 @@ Type: `String` or `Function`
 The replacement string or function. Called once for each match.
 Function has access to regex outcome (all arguments are passed).
 
+More details here: [MDN documentation for RegExp] and [MDN documentation for String.replace].
+
+###### options.logs
+Type: `Boolean` or `Object`
+
+Output logs.
+
+`true` is the same as:
+```javascript
+logs: {
+  enabled: true,
+  notReplaced: false,
+}
+```
+
 ###### options.logs.enabled
 Type: `Boolean`, Default: `true`
 
-Displaying logs.
+Output logs.
 
 ###### options.logs.notReplaced
 Type: `Boolean`, Default: `false`
 
-Displaying "not replaced" logs.
-
-More details here: [MDN documentation for RegExp] and [MDN documentation for String.replace].
+Output "not replaced" logs.
 
 #### replace(pattern, replacement, options)
 
