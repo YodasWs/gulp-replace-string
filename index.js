@@ -25,7 +25,9 @@ module.exports = function (obj, replaceTo=null, userOptions=null) {
 	let replaceFrom = ''
 	let options = {}
 
-	if (typeof obj === 'object' && ! (obj instanceof RegExp)) {
+	if (Array.isArray(obj)) {
+		[replaceFrom, replaceTo] = obj;
+	} else if (typeof obj === 'object' && ! (obj instanceof RegExp)) {
 		if (obj.pattern) replaceFrom = obj.pattern
 		if (obj.replacement) replaceTo = obj.replacement
 		options = extend(true, {}, obj, userOptions)
@@ -80,10 +82,14 @@ module.exports = function (obj, replaceTo=null, userOptions=null) {
 				let contents = String(file.contents)
 				const regex = replaceFrom instanceof RegExp
 					? replaceFrom
-					: new RegExp(replaceFrom, 'g')
+					: new RegExp(replaceFrom, 'g');
 
 				if (regex.test(contents)) {
-					contents = contents.replace(regex, _replaceTo)
+					if (typeof replaceTo === 'string') {
+						contents = contents.replace(regex, replaceTo);
+					} else {
+						contents = contents.replace(regex, _replaceTo);
+					}
 				} else {
 					log(false, regex, false, fileName)
 				}

@@ -1,6 +1,8 @@
 # gulp-replace-string
 > Replaces strings in files by using string or regex patterns.
 
+You'll actually want to instead use [@yodasws/gulp-pattern-replace](https://github.com/YodasWs/gulp-pattern-replace#readme) ([npm](https://www.npmjs.com/package/@yodasws/gulp-pattern-replace)). It provides extra flexability and smaller dependency tree.
+
 Forked this off [gulp-string-replace](https://github.com/tomaszczechowski/gulp-string-replace) because I wanted to be able to pass all the arguments/options in a single [options object argument](https://github.com/YodasWs/gulp-replace-string#example-with-options-object).
 
 ## Installation
@@ -21,30 +23,28 @@ npm install --save-dev gulp-replace-string
 ```javascript
 var replace = require('gulp-replace-string');
 
-gulp.task('replace_1', function() {
+gulp.task('replace_1', () => {
   gulp.src(["./config.js"])
     .pipe(replace(new RegExp('@env@', 'g'), 'production'))
     .pipe(gulp.dest('./build/config.js'))
 });
 
-gulp.task('replace_2', function() {
+gulp.task('replace_2', () => {
   gulp.src(["./index.html"])
     .pipe(replace(/version(={1})/g, '$1v0.2.2'))
     .pipe(gulp.dest('./build/index.html'))
 });
 
-gulp.task('replace_3', function() {
+gulp.task('replace_3', () => {
   gulp.src(["./config.js"])
-    .pipe(replace(/foo/g, function () {
-        return 'bar';
-    }))
+    .pipe(replace(/foo/g, () => 'bar'))
     .pipe(gulp.dest('./build/config.js'))
 });
 ```
 
 ### String Replace
 ```javascript
-gulp.task('replace_1', function() {
+gulp.task('replace_1', () => {
   gulp.src(["./config.js"])
     .pipe(replace('@env@', 'production'))
     .pipe(gulp.dest('./build/config.js'))
@@ -53,17 +53,17 @@ gulp.task('replace_1', function() {
 
 ### Function Replace
 ```javascript
-gulp.task('replace_1', function() {
+gulp.task('replace_1', () => {
   gulp.src(["./config.js"])
-    .pipe(replace('@env@', function () {
+    .pipe(replace('@env@', () => {
         return argv.env === 'dev' ? 'dev' : 'production';
     }))
     .pipe(gulp.dest('./build/config.js'))
 });
 
-gulp.task('replace_2', function() {
+gulp.task('replace_2', () => {
   gulp.src(["./config.js"])
-    .pipe(replace('environment', function (pattern) {
+    .pipe(replace('environment', (pattern) => {
         return pattern + '_mocked';
     }))
     .pipe(gulp.dest('./build/config.js'))
@@ -80,26 +80,35 @@ var options = {
   }
 };
 
-gulp.task('replace_1', function() {
+gulp.task('replace_1', () => {
   gulp.src(["./config.js"])
     .pipe(replace(options)
     .pipe(gulp.dest('./build/config.js'))
 });
 ```
 
-### API
+### An Array
+```javascript
+gulp.task('lint-js', () => {
+  gulp.src(["./config.js"])
+    .pipe(replace([/(if|for|switch|while)\(/g, '$1 (')
+    .pipe(gulp.dest('./build/config.js'));
+});
+```
 
-#### replace(options)
+## API
 
-##### options
+### replace(options)
+
+#### options
 Type: `Object`
 
-###### options.pattern
+##### options.pattern
 Type: `String` or `RegExp`
 
 The string to search for.
 
-###### options.replacement
+##### options.replacement
 Type: `String` or `Function`
 
 The replacement string or function. Called once for each match.
@@ -107,7 +116,7 @@ Function has access to regex outcome (all arguments are passed).
 
 More details here: [MDN documentation for RegExp] and [MDN documentation for String.replace].
 
-###### options.logs
+##### options.logs
 Type: `Boolean` or `Object`
 
 Output logs.
@@ -120,30 +129,30 @@ logs: {
 }
 ```
 
-###### options.logs.enabled
+##### options.logs.enabled
 Type: `Boolean`, Default: `true`
 
 Output logs.
 
-###### options.logs.notReplaced
+##### options.logs.notReplaced
 Type: `Boolean`, Default: `false`
 
 Output "not replaced" logs.
 
-#### replace(pattern, replacement, options)
+### replace(pattern, replacement, options)
 
-##### pattern
+#### pattern
 Type: `String` or `RegExp`
 
 The string to search for.
 
-##### replacement
+#### replacement
 Type: `String` or `Function`
 
 The replacement string or function. Called once for each match.
 Function has access to regex outcome (all arguments are passed).
 
-##### options
+#### options
 Type: `Object`
 
 Same as above, but without properties `pattern` or `replacement`
